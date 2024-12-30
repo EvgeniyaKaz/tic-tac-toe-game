@@ -1,0 +1,15 @@
+.information{
+    text-align: center;
+    background-color: #708090;
+    height: 50px;
+	border: 2px solid #DCDCDC;
+    border-radius: 20px;
+    width: 300px;
+    margin:10px 400px;
+    padding:10px 200px;
+}
+.information-text{
+    text-align: center;
+    color: white;
+    font-size: 1.1rem;
+}
