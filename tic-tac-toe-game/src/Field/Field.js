@@ -10,40 +10,45 @@ export const FieldLayout = ({
 	setIsDraws,
 	winner,
 }) => {
-	const isValid = (index) => {
-		if (field[index] === '') {
-			return false;
-		} else {
-			return true;
-		}
-	};
-
 	const clickButton = (index) => {
 		const newField = [...field];
 
 		if (winner) {
-			return setIsGameEnded(true);
+			setIsGameEnded(true);
 		}
 
 		if (!winner && newField[index] !== '') {
-			return setIsDraws(true);
+			setIsDraws(true);
 		}
 
-		if (currentPlayer === 'X') {
+		if (currentPlayer === 'X' && newField[index] === '' && !isGameEnded) {
 			newField[index] = 'X';
-			setCurrentPlayer('O');
-		} else {
+			if (winner) {
+				setCurrentPlayer('X');
+			} else if (!winner) {
+				setCurrentPlayer('O');
+			}
+		} else if (currentPlayer === 'O' && newField[index] === '' && !isGameEnded) {
 			newField[index] = 'O';
-			setCurrentPlayer('X');
+			if (winner) {
+				setCurrentPlayer('O');
+			} else if (!winner) {
+				setCurrentPlayer('X');
+			}
 		}
-
 		setField(newField);
 	};
 	return (
 		<div className={styles['playing-field']}>
-			{field.map((currentValue, i) => (
-				<button className={styles['playing-field-button']} key={i} disabled={isValid(i)} onClick={() => clickButton(i)}>
-					{currentValue}
+			{field.map((value, i) => (
+				<button
+					className={styles['playing-field-button']}
+					key={i}
+					onClick={() => {
+						clickButton(i);
+					}}
+				>
+					{value}
 				</button>
 			))}
 		</div>
